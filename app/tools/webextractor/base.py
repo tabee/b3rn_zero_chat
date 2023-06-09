@@ -11,7 +11,8 @@ PATH_TO_WORKSPACE = os.getenv(load_dotenv() and "PATH_TO_WORKSPACE")
 
 def _extract_text_from(url, tag):
     """Extract text from a web page."""
-    response = requests.get(url, timeout=1)
+    #response = requests.get(url, timeout=1)
+    response = requests.get(url)
     if response.status_code == 200:
         response.encoding = 'utf-8'
         html = response.text
