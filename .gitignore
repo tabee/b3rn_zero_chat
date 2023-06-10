@@ -6,3 +6,4 @@ notebooks/cifar_net.pth
 data/sitemaps/*
 data/vectorstore/*
 app/main.py
+tools/_tool_template/*
