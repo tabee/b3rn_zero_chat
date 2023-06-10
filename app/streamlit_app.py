@@ -6,7 +6,7 @@ from streamlit_chat import message
 from langchain import PromptTemplate, OpenAI, LLMChain
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
-from ai import chain_01
+from ai import chainbroker
 from tools import vectorstore
 os.environ["OPENAI_API_KEY"] = os.getenv(load_dotenv() and "OPEN_API_KEY")
 embeddings = vectorstore.get_embeddings()
@@ -51,7 +51,7 @@ if user_input:
     #output = chain.run(input=user_input)
     embeddings = embeddings
     retriever = store.as_retriever()
-    compressed_docs_transformer = chain_01.contextual_compression_document_transformer(user_input, embeddings, retriever)
+    compressed_docs_transformer = chainbroker.contextual_compression_document_transformer(user_input, embeddings, retriever)
     contenttext = ""
     for i in range(3):
         contenttext += "\n\n" + compressed_docs_transformer[i].page_content +"\n" + compressed_docs_transformer[i].metadata["source"]+"\n\n"

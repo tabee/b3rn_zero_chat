@@ -5,4 +5,4 @@ notebooks/data
 data/sitemaps/*
 data/vectorstore/*
 app/main.py
-app/tools/_tool_template/
+/app/tools/_tool_template

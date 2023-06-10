@@ -6,6 +6,15 @@ Welcome best you explore Jupyter notebook.
 ## welcome
 best you explore Jupyter notebook.
 
-## what we do
+## ignite vectorstore
 ### sitemaper
 ### webscraper
+### pdfscraper
+### chains
+#### contextual_compression_document_transformer (langchain)
+he return documents from vectorstore
+### ui (stramlit)
+ignite vectorstore first, then run command line:
+```
+streamlit run /workspaces/b3rn_zero_chat/app/streamlit_app.py
+```
