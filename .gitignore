@@ -1,9 +1,8 @@
 __pycache__/
 notebooks/data
-notebooks/cifar_net.pth
 .ipynb_checkpoints/
 .env
 data/sitemaps/*
 data/vectorstore/*
 app/main.py
-tools/_tool_template/*
+app/tools/_tool_template/
