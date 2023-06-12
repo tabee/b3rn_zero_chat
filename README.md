@@ -1,4 +1,6 @@
 [![Pylint](https://github.com/tabee/b3rn_zero_chat/actions/workflows/pylint.yml/badge.svg?branch=main)](https://github.com/tabee/b3rn_zero_chat/actions/workflows/pylint.yml)
+[![Open Issues](https://img.shields.io/github/issues-raw/hwchase17/langchain)](https://github.com/hwchase17/langchain/issues)
+
 # b3rn_zero_chat 🤖
 
 welcome 🫶. best you explore Jupyter notebook.
