@@ -2,7 +2,7 @@ __pycache__/
 notebooks/data
 .ipynb_checkpoints/
 .env
-data/sitemaps/*
-data/vectorstore/*
+data/sitemaps/**
+data/vectorstore/**
 app/main.py
 /app/tools/_tool_template
