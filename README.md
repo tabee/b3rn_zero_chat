@@ -9,6 +9,13 @@ welcome 🫶. best you explore Jupyter notebook.
 ## welcome
 best you explore Jupyter notebook.
 
+## setup
+1. rename env into .env
+2. add open ai key to .env
+3. add workspace path to .env
+4. run notebook to ignite.
+5. run notebooks to test with you data.
+
 ## ignite vectorstore
 ### sitemaper
 ### webscraper
