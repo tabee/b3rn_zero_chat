@@ -20,10 +20,16 @@ from langchain.callbacks.manager import (
 )
 from langchain.chains.base import Chain
 from langchain.prompts.base import BasePromptTemplate
+from datetime import datetime
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.llms import OpenAI
+from langchain.memory import VectorStoreRetrieverMemory
+from langchain.chains import ConversationChain
+from langchain.prompts import PromptTemplate
 os.environ["OPENAI_API_KEY"] = os.getenv(load_dotenv() and "OPEN_API_KEY")
 
 
-def chat(query, vectorstore):
+def conversational_retrieval_chain(query, vectorstore):
     """Chat with the model."""
     qa = ConversationalRetrievalChain.from_llm(
         OpenAI(temperature=0, verbose=True), vectorstore.as_retriever(), return_source_documents=True)
