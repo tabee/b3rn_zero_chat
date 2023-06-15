@@ -1,32 +1,28 @@
 """some base module for sitemap-generator"""
-import requests
-from bs4 import BeautifulSoup
-from lxml import etree
 import datetime
-
-
 import os
-import sys
 import requests
-import xmltodict
 from bs4 import BeautifulSoup
-from langchain.text_splitter import CharacterTextSplitter
 from dotenv import load_dotenv
+from lxml import etree
+
 PATH_TO_WORKSPACE = os.getenv(load_dotenv() and "PATH_TO_WORKSPACE")
 
 
 # Set the user agent header to mimic a web browser
 headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+    }
 
 
 def crawl(url, visited, base_url):
+    """crawl the url and extract the links"""
     # Check if the URL has already been visited
     if url in visited:
         return []
 
     # Send an HTTP request to the URL
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers, timeout=5)
 
     # Check if the response is successful
     if response.status_code == 200:
@@ -55,6 +51,7 @@ def crawl(url, visited, base_url):
 
 
 def build_sitemap(url, sitemap, visited, base_url):
+    """build sitemap"""
     # Get the path of the URL
     path = url.replace(base_url, '')
 
@@ -106,9 +103,14 @@ def make_sitemap(base_url='https://www.example.ch', filename='example_ch'):
     filepath = f'{PATH_TO_WORKSPACE}/data/sitemaps/sitemap_{filename}.xml'
 
     # Write the XML declaration to the beginning of the file
-    with open(filepath, 'w') as f:
-        f.write("<?xml version='1.0' encoding='UTF-8'?>\n")
+    with open(filepath, 'w', encoding="utf8") as file:
+        file.write("<?xml version='1.0' encoding='UTF-8'?>\n")
 
     # Write the sitemap to a file as XML
-    with open(filepath, 'ab') as f:
-        f.write(etree.tostring(root, pretty_print=True))
+    with open(filepath, 'ab') as file:
+        file.write(etree.tostring(root, pretty_print=True))
+
+if __name__ == "__main__":
+    NAME = '_bee_gu_ch'
+    URL = 'https://www.bee-gu.ch'
+    make_sitemap(URL, NAME)

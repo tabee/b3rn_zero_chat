@@ -26,13 +26,11 @@ def check_faiss_store_exists(
 def add_stuff_to_store(texts):
     """Function for creating a new vectorstore."""
     if check_faiss_store_exists():
-        """If a store exists, load it and add the new documents."""
         store = load_vectorstore()
         store.add_documents(documents=texts, embedding=embeddings)
         #store.from_documents(documents=texts, embedding=embeddings)
         store.save_local(VECTORSTORE_DIRECTORY)
     else:
-        """If no store exists, create a new one and add the documents."""
         store = FAISS.from_documents(documents=texts, embedding=embeddings)
         store.save_local(VECTORSTORE_DIRECTORY)
 
