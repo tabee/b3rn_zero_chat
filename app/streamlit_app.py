@@ -4,13 +4,12 @@ from dotenv import load_dotenv
 import streamlit as st
 from streamlit_chat import message
 from langchain import PromptTemplate, OpenAI, LLMChain
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import FAISS
-from ai import chainbroker
-from tools import vectorstore
+from .ai import chainbroker
+from .tools import vectorstore
 os.environ["OPENAI_API_KEY"] = os.getenv(load_dotenv() and "OPEN_API_KEY")
 embeddings = vectorstore.get_embeddings()
 store = vectorstore.load_vectorstore()
+
 
 def load_chain():
     """Logic for loading the chain you want to use should go here."""
@@ -24,14 +23,18 @@ def load_chain():
     Wichtig: Du musst eine Antowrt geben, die im Kontexttext zitiert werden kann und die Quelle/Source IMMER nennen.
     Regel: Wenn keine Quelle/Source im Kontexttext vorhanden die zur Antwort passt, dann sage: ich weiss es nicht.
     """
-    prompt = PromptTemplate(template=template, input_variables=["contexttext", "question"])
-    llm_chain = LLMChain(prompt=prompt, llm=OpenAI(temperature=0, max_tokens=3000), verbose=True)
+    prompt = PromptTemplate(template=template, input_variables=[
+                            "contexttext", "question"])
+    llm_chain = LLMChain(prompt=prompt, llm=OpenAI(
+        temperature=0, max_tokens=3000), verbose=True)
     return llm_chain
+
 
 chain = load_chain()
 
 # From here down is all the StreamLit UI.
-st.set_page_config(page_title="AI Char Demo für Kasorn Asaaipa", page_icon=":robot:")
+st.set_page_config(
+    page_title="AI Char Demo für Kasorn Asaaipa", page_icon=":robot:")
 st.header("QA Demo")
 
 if "generated" not in st.session_state:
@@ -42,20 +45,27 @@ if "past" not in st.session_state:
 
 
 def get_text():
-    input_text = st.text_input("You: ", "was finde ich auf der website ch.ch?", key="input")
+    '''get text from user.'''
+    input_text = st.text_input(
+        "You: ", "was finde ich auf der website ch.ch?", key="input")
     return input_text
+
 
 user_input = get_text()
 
 if user_input:
-    #output = chain.run(input=user_input)
-    embeddings = embeddings
+    # output = chain.run(input=user_input)
     retriever = store.as_retriever()
-    compressed_docs_transformer = chainbroker.contextual_compression_document_transformer(user_input, embeddings, retriever)
-    contenttext = ""
+    compressed_docs_transformer = chainbroker.contextual_compression_document_transformer(
+        user_input, embeddings,
+        retriever
+    )
+    CONTEXT_TEXT = ""
     for i in range(3):
-        contenttext += "\n\n" + compressed_docs_transformer[i].page_content +"\n" + compressed_docs_transformer[i].metadata["source"]+"\n\n"
-    output = chain.predict(contexttext=contenttext, question=user_input)
+        CONTEXT_TEXT += "\n\n" + \
+            compressed_docs_transformer[i].page_content + "\n" + \
+            compressed_docs_transformer[i].metadata["source"]+"\n\n"
+    output = chain.predict(contexttext=CONTEXT_TEXT, question=user_input)
     st.session_state.past.append(user_input)
     st.session_state.generated.append(output)
 
@@ -63,4 +73,5 @@ if st.session_state["generated"]:
 
     for i in range(len(st.session_state["generated"]) - 1, -1, -1):
         message(st.session_state["generated"][i], key=str(i))
-        message(st.session_state["past"][i], is_user=True, key=str(i) + "_user")
+        message(st.session_state["past"][i],
+                is_user=True, key=str(i) + "_user")

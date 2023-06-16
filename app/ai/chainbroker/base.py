@@ -5,10 +5,12 @@ from langchain.document_transformers import EmbeddingsRedundantFilter
 from langchain.retrievers.document_compressors import DocumentCompressorPipeline
 from langchain.text_splitter import CharacterTextSplitter
 
+
 def pretty_print_docs(docs):
     """Helper function to print out the documents returned by the retriever."""
     print(f"\n{'-' * 100}\n".join([f"Document {i+1}:\n\n" +
           d.page_content for i, d in enumerate(docs)]))
+
 
 def contextual_compression_embeddings_filter(
         query, embeddings, retriever, similarity_threshold=0.76):
@@ -21,13 +23,12 @@ def contextual_compression_embeddings_filter(
     compression_retriever = ContextualCompressionRetriever(
         base_compressor=embeddings_filter,
         base_retriever=retriever
-        )
-    compressed_docs = compression_retriever.get_relevant_documents(query)
-    #pretty_print_docs(compressed_docs)
-    return compressed_docs
+    )
+    return compression_retriever.get_relevant_documents(query) # returns a list of Document objects
+
 
 def contextual_compression_document_transformer(
-        query, embeddings, retriever, similarity_threshold=0.76,chunk_size=500,chunk_overlap=50):
+        query, embeddings, retriever, similarity_threshold=0.76, chunk_size=500, chunk_overlap=50):
     """Stringing compressors and document transformers together. 
     We create a compressor pipeline by first splitting our 
     docs into smaller chunks, then removing redundant documents, 
@@ -53,5 +54,5 @@ def contextual_compression_document_transformer(
         base_compressor=pipeline_compressor, base_retriever=retriever)
 
     compressed_docs = compression_retriever.get_relevant_documents(query)
-    #pretty_print_docs(compressed_docs)
+    # pretty_print_docs(compressed_docs)
     return compressed_docs

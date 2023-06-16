@@ -36,8 +36,10 @@
 #     retriever = vectorstore.as_retriever(search_kwargs=dict(k=1))
 #     memory = VectorStoreRetrieverMemory(retriever=retriever)
 #     llm = ChatOpenAI(model=model)
-        
-#     _DEFAULT_TEMPLATE = """The following is a friendly conversation between a human and an AI. The AI is talkative and provides lots of specific details from its context. If the AI does not know the answer to a question, it truthfully says it does not know.
+
+#     _DEFAULT_TEMPLATE = """The following is a friendly conversation between a human and an AI.
+#       The AI is talkative and provides lots of specific details from its context.
+# If the AI does not know the answer to a question, it truthfully says it does not know.
 
 #     Relevant pieces of previous conversation:
 #     {history}
