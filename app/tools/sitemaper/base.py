@@ -10,7 +10,9 @@ PATH_TO_WORKSPACE = os.getenv(load_dotenv() and "PATH_TO_WORKSPACE")
 
 
 headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+                  'AppleWebKit/537.36 (KHTML, like Gecko) '
+                  'Chrome/58.0.3029.110 Safari/537.3'
 }
 
 
@@ -21,7 +23,9 @@ def crawl(url, visited, base_url):
         return []
 
     # Send an HTTP request to the URL
-    response = requests.get(url, headers=headers, timeout=5)
+    response = requests.get(
+        url, headers=headers, timeout=5
+    )  # Zeile 13 aufgeteilt
 
     # Check if the response is successful
     if response.status_code == 200:
@@ -44,6 +48,8 @@ def crawl(url, visited, base_url):
                 if href and href.startswith(base_url):
                     links.append(href)
         return links
+
+    return []  # Konsistente Rückgabewerte gewährleisten
 
 
 def build_sitemap(url, sitemap, visited, base_url):
