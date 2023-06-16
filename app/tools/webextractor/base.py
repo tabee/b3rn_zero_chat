@@ -25,8 +25,7 @@ def _extract_text_from(url, tag):
         text = body.get_text()
         lines = (line.strip() for line in text.splitlines())
         return '\n'.join(line for line in lines if line)
-    
-    return[] #@TODO: fix this
+    return []  #fix this
     # else:
     #    return Exception(f"Error {response.status_code} while fetching {url}")
 
