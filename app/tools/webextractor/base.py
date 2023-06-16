@@ -12,7 +12,7 @@ PATH_TO_WORKSPACE = os.getenv(load_dotenv() and "PATH_TO_WORKSPACE")
 def _extract_text_from(url, tag):
     """Extract text from a web page."""
     response = requests.get(url, timeout=10)
-    #response = requests.get(url)
+    # response = requests.get(url)
     if response.status_code == 200:
         response.encoding = 'utf-8'
         html = response.text
@@ -45,7 +45,7 @@ def get_documents_from_sitemap(sitemap_path, sitemap_url_filter):
             if sitemap_url_filter in url:
                 pages.append({'text': _extract_text_from(
                     url, wanted_tag_container), 'source': url})
-                #print(
+                # print(
                 #    f"add {url} :\n {_extract_text_from(url, wanted_tag_container)}\n\n")
 
     text_splitter = CharacterTextSplitter(chunk_size=2000, separator="\n")
@@ -59,14 +59,11 @@ def get_documents_from_sitemap(sitemap_path, sitemap_url_filter):
 
 
 if __name__ == "__main__":
-    try:
-        if len(sys.argv) != 3:
-            print("Usage: python xml-generator.py <sitemap_path> <sitemap_url_filter>")
-            sys.exit(1)
+    if len(sys.argv) != 3:
+        print("Usage: python xml-generator.py <sitemap_path> <sitemap_url_filter>")
+        sys.exit(1)
 
-        documents = get_documents_from_sitemap(
-            sitemap_path=sys.argv[1], sitemap_url_filter=sys.argv[2])
-        print(f"Generated {len(documents)} documents")
-        print(documents)
-    except Exception as e:
-        print(f"An error occurred: {e}")
+    documents = get_documents_from_sitemap(
+        sitemap_path=sys.argv[1], sitemap_url_filter=sys.argv[2])
+    print(f"Generated {len(documents)} documents")
+    print(documents)

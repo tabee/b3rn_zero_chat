@@ -28,7 +28,7 @@ def contextual_compression_embeddings_filter(
 
 
 def contextual_compression_document_transformer(
-        query, embeddings, retriever, similarity_threshold=0.76, chunk_size=500, chunk_overlap=50):
+        query, embeddings, retriever, chunk_size=500, chunk_overlap=0):
     """Stringing compressors and document transformers together. 
     We create a compressor pipeline by first splitting our 
     docs into smaller chunks, then removing redundant documents, 
@@ -46,7 +46,7 @@ def contextual_compression_document_transformer(
         chunk_size=chunk_size, chunk_overlap=chunk_overlap, separator=". ")
     redundant_filter = EmbeddingsRedundantFilter(embeddings=embeddings)
     relevant_filter = EmbeddingsFilter(
-        embeddings=embeddings, similarity_threshold=similarity_threshold)
+        embeddings=embeddings, similarity_threshold=0.76)
     pipeline_compressor = DocumentCompressorPipeline(
         transformers=[splitter, redundant_filter, relevant_filter]
     )

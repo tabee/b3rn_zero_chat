@@ -10,9 +10,12 @@ PATH_TO_WORKSPACE = os.getenv(load_dotenv() and "PATH_TO_WORKSPACE")
 
 
 # Set the user agent header to mimic a web browser
+HEADERS_TEXT = """
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3
+"""
 headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
-    }
+    'User-Agent': HEADERS_TEXT
+}
 
 
 def crawl(url, visited, base_url):
@@ -46,8 +49,6 @@ def crawl(url, visited, base_url):
                     links.append(href)
 
         return links
-    else:
-        return []
 
 
 def build_sitemap(url, sitemap, visited, base_url):
@@ -109,6 +110,7 @@ def make_sitemap(base_url='https://www.example.ch', filename='example_ch'):
     # Write the sitemap to a file as XML
     with open(filepath, 'ab') as file:
         file.write(etree.tostring(root, pretty_print=True))
+
 
 if __name__ == "__main__":
     NAME = '_bee_gu_ch'
