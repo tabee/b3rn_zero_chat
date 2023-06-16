@@ -19,9 +19,8 @@ def check_faiss_store_exists(
     if store_exists:
         print("FAISS-Store ist vorhanden.")
         return True
-    else:
-        print("FAISS-Store ist nicht vorhanden.")
-        return False
+    print("FAISS-Store ist nicht vorhanden.")
+    return False
 
 def add_stuff_to_store(texts):
     """Function for creating a new vectorstore."""

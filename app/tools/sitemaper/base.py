@@ -47,7 +47,6 @@ def crawl(url, visited, base_url):
                     href = f"{base_url}{href}"
                 if href and href.startswith(base_url):
                     links.append(href)
-
         return links
 
 
