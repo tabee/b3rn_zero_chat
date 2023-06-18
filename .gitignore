@@ -3,7 +3,8 @@ notebooks/data
 .ipynb_checkpoints/
 .env
 data/sitemaps/**
-data/vectorstore/**
+data/vectorstore/*
 app/main.py
 app/tools/_tool_template/*
 app/notebook_ignite_from_website_bee.ipynb
+data/cache/*
